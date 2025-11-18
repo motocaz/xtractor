@@ -7,8 +7,8 @@ if (!publishableKey) {
 }
 
 const CLERK_CONFIG = {
-    signInUrl: "/sign-in",
-    signUpUrl: "/sign-up",
+    signInUrl: "/src/pages/sign-in",
+    signUpUrl: "/src/pages/sign-up",
     afterSignOutUrl: "/",
     localization: {
         locale: "en-US"
