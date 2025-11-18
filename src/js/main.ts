@@ -1,11 +1,12 @@
 import { categories } from './config/tools.js';
-import { dom, switchView, hideAlert } from './ui.js';
+import { dom, switchView, hideAlert, showLoginModal } from './ui.js';
 import { setupToolInterface } from './handlers/toolSelectionHandler.js';
 import { createIcons, icons } from 'lucide';
 import * as pdfjsLib from 'pdfjs-dist';
 import '../css/styles.css';
 import { formatStars } from './utils/helpers.js';
 import { mountHeaderUser } from './auth/header-user.js';
+import { checkAuth } from './auth/check-auth.js';
 
 const init = () => {
   pdfjsLib.GlobalWorkerOptions.workerSrc = new URL(
@@ -29,7 +30,7 @@ const init = () => {
         simpleNav.innerHTML = `
           <div class="container mx-auto px-4">
             <div class="flex justify-start items-center h-16">
-              <div class="flex-shrink-0 flex items-center">
+              <div class="shrink-0 flex items-center">
                 <img src="images/favicon.svg" alt="Xtractor PDF Logo" class="h-8 w-8">
                 <span class="text-white font-bold text-xl ml-2">Xtractor</span>
               </div>
@@ -154,6 +155,16 @@ const init = () => {
         toolCard.href = tool.href;
         toolCard.className =
           'tool-card block bg-[#18181b] rounded-xl p-4 cursor-pointer flex flex-col items-center justify-center text-center no-underline hover:shadow-lg transition duration-200';
+
+        toolCard.addEventListener('click', async (e) => {
+          e.preventDefault();
+          const isAuthenticated = await checkAuth();
+          if (!isAuthenticated) {
+            showLoginModal();
+          } else {
+            window.location.href = tool.href;
+          }
+        });
       } else {
         toolCard = document.createElement('div');
         toolCard.className =
@@ -236,12 +247,19 @@ const init = () => {
       : 'Ctrl + K';
   }
 
-  dom.toolGrid.addEventListener('click', (e) => {
+  dom.toolGrid.addEventListener('click', async (e) => {
     // @ts-expect-error TS(2339) FIXME: Property 'closest' does not exist on type 'EventTa... Remove this comment to see the full error message
     const card = e.target.closest('.tool-card');
     if (card) {
       const toolId = card.dataset.toolId;
-      setupToolInterface(toolId);
+      if (toolId) {
+        const isAuthenticated = await checkAuth();
+        if (!isAuthenticated) {
+          showLoginModal();
+          return;
+        }
+        setupToolInterface(toolId);
+      }
     }
   });
   dom.backToGridBtn.addEventListener('click', () => switchView('grid'));
