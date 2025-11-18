@@ -1,0 +1,13 @@
+/* GitHub icon styling - make it white */
+#clerk-sign-in button[data-provider='github'] svg,
+#clerk-sign-in button[data-provider='github'] img,
+#clerk-sign-up button[data-provider='github'] svg,
+#clerk-sign-up button[data-provider='github'] img,
+button[data-provider='github'] svg,
+button[data-provider='github'] img,
+[data-provider='github'] svg,
+[data-provider='github'] img,
+.cl-socialButtonsProviderIcon__github,
+[class*='cl-socialButtonsProviderIcon'][class*='github'] {
+  filter: invert(1) !important;
+}
