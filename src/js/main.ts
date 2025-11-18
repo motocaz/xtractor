@@ -5,6 +5,7 @@ import { createIcons, icons } from 'lucide';
 import * as pdfjsLib from 'pdfjs-dist';
 import '../css/styles.css';
 import { formatStars } from './utils/helpers.js';
+import { mountHeaderUser } from './auth/header-user.js';
 
 const init = () => {
   pdfjsLib.GlobalWorkerOptions.workerSrc = new URL(
@@ -268,6 +269,13 @@ const init = () => {
 
   createIcons({ icons });
   console.log('Please share our tool and share the love!');
+
+  mountHeaderUser({ containerId: 'header-user-container' }).catch((err) => {
+    console.error('Failed to mount header user component:', err);
+  });
+  mountHeaderUser({ containerId: 'header-user-container-mobile' }).catch((err) => {
+    console.error('Failed to mount mobile header user component:', err);
+  });
 
   const githubStarsElement = document.getElementById('github-stars');
   if (githubStarsElement && !__SIMPLE_MODE__) {
