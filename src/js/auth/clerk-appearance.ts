@@ -80,5 +80,20 @@ export const clerkAppearance = {
             borderColor: '#374151',
             backgroundColor: '#374151',
         },
+        // UserButton popover action buttons
+        userButtonPopoverActionButton: {
+            color: '#ffffff',
+            '&:hover': {
+                backgroundColor: '#374151',
+                color: '#ffffff',
+            },
+        },
+        userButtonPopoverActionButton__manageAccount: {
+            color: '#ffffff',
+            '&:hover': {
+                backgroundColor: '#374151',
+                color: '#ffffff',
+            },
+        },
     },
 } as any;

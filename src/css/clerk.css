@@ -8,6 +8,230 @@ button[data-provider='github'] img,
 [data-provider='github'] svg,
 [data-provider='github'] img,
 .cl-socialButtonsProviderIcon__github,
+.cl-providerIcon__github,
 [class*='cl-socialButtonsProviderIcon'][class*='github'] {
   filter: invert(1) !important;
+}
+
+
+/* UserProfile component - force white text and dark theme */
+.cl-userProfile,
+.cl-userProfile * {
+  color: #ffffff !important;
+}
+
+/* UserProfile navigation sidebar */
+.cl-userProfileNav,
+.cl-userProfileNavItem,
+.cl-userProfileNavButton {
+  color: #d1d5db !important;
+  background-color: var(--color-tool-card) !important;
+}
+
+.cl-userProfileNavItem[aria-current='page'],
+.cl-userProfileNavButton[aria-current='page'] {
+  background-color: #374151 !important;
+  color: #ffffff !important;
+}
+
+/* UserProfile header */
+.cl-userProfileHeader,
+.cl-userProfileHeaderTitle,
+.cl-userProfileHeaderSubtitle {
+  color: #ffffff !important;
+}
+
+.cl-userProfileHeaderSubtitle {
+  color: #d1d5db !important;
+}
+
+/* UserProfile sections */
+.cl-userProfileSection,
+.cl-userProfileSectionHeader,
+.cl-userProfileSectionTitle {
+  color: #ffffff !important;
+}
+
+.cl-userProfileSectionContent {
+  color: #d1d5db !important;
+}
+
+/* UserProfile form fields */
+.cl-userProfileFormField,
+.cl-userProfileFormFieldLabel {
+  color: #d1d5db !important;
+}
+
+.cl-userProfileFormFieldInput {
+  background-color: var(--color-input-bg) !important;
+  border-color: #374151 !important;
+  color: #ffffff !important;
+}
+
+/* UserProfile text elements */
+.cl-userProfileText,
+.cl-userProfileTextPrimary {
+  color: #ffffff !important;
+}
+
+.cl-userProfileTextSecondary {
+  color: #d1d5db !important;
+}
+
+.cl-userProfileTextTertiary {
+  color: #9ca3af !important;
+}
+
+/* UserProfile links */
+.cl-userProfileLink,
+.cl-userProfileActionLink {
+  color: var(--color-fuchsia-400) !important;
+}
+
+.cl-userProfileLink:hover,
+.cl-userProfileActionLink:hover {
+  color: var(--color-fuchsia-300) !important;
+}
+
+/* UserProfile email addresses */
+.cl-userProfileEmailAddress,
+.cl-userProfileEmailAddressText {
+  color: #ffffff !important;
+  background-color: var(--color-input-bg) !important;
+  border-color: #374151 !important;
+}
+
+.cl-userProfileEmailAddressSecondary {
+  color: #d1d5db !important;
+}
+
+/* UserProfile connected accounts */
+.cl-userProfileConnectedAccount,
+.cl-userProfileConnectedAccountText {
+  color: #ffffff !important;
+  background-color: var(--color-input-bg) !important;
+  border-color: #374151 !important;
+}
+
+.cl-userProfileConnectedAccountSecondary {
+  color: #d1d5db !important;
+}
+
+/* UserProfile badges */
+.cl-userProfileBadge,
+.cl-badge {
+  background-color: var(--color-fuchsia-600) !important;
+  color: #ffffff !important;
+}
+
+.cl-userProfileFormButton:hover {
+  background-color: var(--color-fuchsia-700) !important;
+}
+
+.cl-userProfileFormButtonSecondary {
+  background-color: var(--color-input-bg) !important;
+  border-color: #374151 !important;
+  color: #ffffff !important;
+}
+
+.cl-userProfileFormButtonSecondary:hover {
+  background-color: #374151 !important;
+}
+
+/* UserProfile cards */
+.cl-userProfileCard,
+.cl-card {
+  background-color: var(--color-tool-card) !important;
+  border-color: #374151 !important;
+}
+
+/* UserProfile dividers */
+.cl-userProfileDivider,
+.cl-dividerLine {
+  border-color: #374151 !important;
+  background-color: #374151 !important;
+}
+
+/* Override any remaining white backgrounds with dark theme */
+.cl-userProfile,
+.cl-userProfilePage,
+.cl-userProfileContent,
+.cl-actionCard {
+  background-color: var(--color-tool-card) !important;
+}
+
+.cl-navbar,
+.cl-footer {
+  background: var(--background);
+}
+
+.cl-internal-18jv961,
+.cl-internal-2z548n,
+.cl-internal-tk30ch {
+  color: white;
+}
+
+.cl-navbarButton {
+  color: white;
+}
+
+.cl-pageScrollBox {
+  background-color: var(--color-tool-card);
+}
+
+.cl-page {
+    color: white;
+}
+
+.cl-headerTitle,
+.cl-userPreviewMainIdentifierText,
+.cl-internal-t7c5vd,
+.cl-internal-wg9ikg,
+.cl-menuItem__connectedAccounts,
+.cl-formFieldLabel__newPassword-field,
+.cl-formFieldLabel__confirmPassword-field,
+.cl-formFieldRadioLabelTitle,
+.cl-formFieldRadioLabelDescription,
+.cl-formFieldSuccessText__newPassword,
+.cl-headerSubtitle,
+.cl-formFieldLabel,
+.cl-footerActionLink,
+.cl-menuItem,
+.cl-formFieldSuccessText,
+.cl-modalCloseButton {
+    color: white;
+}
+
+.cl-profileSectionPrimaryButton,
+.cl-menuButton,
+.cl-formButtonPrimary,
+.cl-internal-uczjzz {
+    color: white;
+    background-color: var(--color-fuchsia-600)
+}
+
+.cl-profileSectionPrimaryButton:hover,
+.cl-menuButton:hover,
+.cl-formButtonPrimary:hover,
+.cl-internal-uczjzz:hover {
+    background-color: var(--color-fuchsia-800);
+    color: white;
+}
+
+.cl-menuButtonEllipsis {
+    background: transparent;
+}
+
+.cl-menuList {
+    background: var(--color-tool-card)
+}
+
+.cl-button__connectedAccounts:hover,
+.cl-button__mfa:hover {
+    background: var(--color-input-bg) !important;
+    color: white !important;
+}
+
+.cl-footerActionLink:hover {
+    color: white !important;
 }
