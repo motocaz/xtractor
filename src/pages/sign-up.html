@@ -1,0 +1,54 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Sign Up - Xtractor</title>
+    <link rel="icon" type="image/png" href="../../images/favicon.svg" />
+    <link href="../../src/css/styles.css" rel="stylesheet" />
+    <link href="../css/clerk.css" rel="stylesheet" />
+  </head>
+  <body class="antialiased bg-gray-900">
+    <nav class="bg-(--background) border-b border-gray-700 sticky top-0 z-30">
+      <div class="container mx-auto px-4">
+        <div class="flex justify-between items-center h-16">
+          <div class="shrink-0 flex items-center cursor-pointer">
+            <img
+              src="../../public/images/favicon.svg"
+              alt="Xtractor PDF Logo"
+              class="h-8 w-8"
+            />
+            <span class="text-white font-bold text-xl ml-2">
+              <a href="../../index.html">Xtractor</a>
+            </span>
+          </div>
+        </div>
+      </div>
+    </nav>
+
+    <div
+      class="min-h-screen flex items-center justify-center p-4 bg-(--background)"
+    >
+      <div id="clerk-sign-up"></div>
+    </div>
+
+    <script type="module">
+      import { mountSignUp } from '../js/auth/sign-up.ts';
+
+      mountSignUp({
+        containerId: 'clerk-sign-up',
+        onError: (error) => {
+          const container = document.getElementById('clerk-sign-up');
+          if (container) {
+            container.innerHTML = `
+              <div class="text-red-400 text-center p-4">
+                <p>Failed to load sign-up form. Please refresh the page.</p>
+                <p class="text-sm mt-2">${error.message}</p>
+              </div>
+            `;
+          }
+        },
+      });
+    </script>
+  </body>
+</html>
