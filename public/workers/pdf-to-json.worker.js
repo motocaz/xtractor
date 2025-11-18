@@ -48,4 +48,3 @@ self.onmessage = (e) => {
     convertPDFsToJSONInWorker(e.data.fileBuffers, e.data.fileNames);
   }
 };
-

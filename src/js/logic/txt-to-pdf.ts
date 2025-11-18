@@ -230,6 +230,7 @@ export async function txtToPdf() {
       const now = new Date().toISOString();
       downloadFile(
         new Blob([new Uint8Array(pdfBytes)], { type: 'application/pdf' }),
+        undefined,
         `${now}_text-document.pdf`
       );
     }

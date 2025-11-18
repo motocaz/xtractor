@@ -39,10 +39,11 @@
     "vitest": "^3.2.4"
   },
   "dependencies": {
+    "@clerk/clerk-js": "^5.109.0",
     "@fontsource/cedarville-cursive": "^5.2.7",
     "@fontsource/dancing-script": "^5.2.8",
-    "@fontsource/jetbrains-mono": "^5.2.8",
     "@fontsource/great-vibes": "^5.2.8",
+    "@fontsource/jetbrains-mono": "^5.2.8",
     "@fontsource/kalam": "^5.2.8",
     "@fontsource/lato": "^5.2.7",
     "@fontsource/merriweather": "^5.2.11",
@@ -64,7 +65,6 @@
     "terser": "^5.44.0",
     "tesseract.js": "^6.0.1",
     "tiff": "^7.1.2",
-    "utif": "^3.1.0",
-    "@clerk/clerk-js": "^5.0.0"
+    "utif": "^3.1.0"
   }
 }
