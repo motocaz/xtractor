@@ -1,4 +1,6 @@
-self.importScripts('/coherentpdf.browser.min.js');
+// Extract base path from worker location (e.g., /xtractor/workers/... -> /xtractor/)
+const basePath = self.location.pathname.split('/workers/')[0] || '';
+self.importScripts(basePath + '/coherentpdf.browser.min.js');
 
 function convertJSONsToPDFInWorker(fileBuffers, fileNames) {
   try {
