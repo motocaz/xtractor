@@ -51,6 +51,8 @@ export default defineConfig(({ mode }) => ({
         'pdf-to-json': resolve(__dirname, 'src/pages/pdf-to-json.html'),
         'json-to-pdf': resolve(__dirname, 'src/pages/json-to-pdf.html'),
         'pdf-multi-tool': resolve(__dirname, 'src/pages/pdf-multi-tool.html'),
+        'sign-in': resolve(__dirname, 'src/pages/sign-in.html'),
+        'sign-up': resolve(__dirname, 'src/pages/sign-up.html'),
       },
     },
   },

@@ -37,7 +37,58 @@ export const showAlert = (title: any, message: any) => {
     dom.alertModal.classList.remove('hidden');
 };
 
-export const hideAlert = () => dom.alertModal.classList.add('hidden');
+export const hideAlert = () => {
+    if ((dom.alertModal as any).__restoreLoginModal) {
+        (dom.alertModal as any).__restoreLoginModal();
+    }
+    dom.alertModal.classList.add('hidden');
+};
+
+export const showLoginModal = () => {
+    dom.alertTitle.textContent = 'Login Required';
+    dom.alertMessage.textContent = 'You need to login to use this tool';
+
+    const originalButtonText = dom.alertOkBtn.textContent;
+
+    const newButton = dom.alertOkBtn.cloneNode(true) as HTMLButtonElement;
+    dom.alertOkBtn.parentNode?.replaceChild(newButton, dom.alertOkBtn);
+
+    newButton.textContent = 'Go to Sign In';
+
+    dom.alertOkBtn = newButton;
+
+    newButton.addEventListener('click', () => {
+        window.location.href = '/src/pages/sign-in.html';
+    });
+
+    const clickOutsideHandler = (e: MouseEvent) => {
+        if (e.target === dom.alertModal) {
+            hideAlert();
+        }
+    };
+
+    const escKeyHandler = (e: KeyboardEvent) => {
+        if (e.key === 'Escape') {
+            hideAlert();
+        }
+    };
+
+    dom.alertModal.addEventListener('click', clickOutsideHandler);
+    document.addEventListener('keydown', escKeyHandler);
+
+    (dom.alertModal as any).__restoreLoginModal = () => {
+        dom.alertModal.removeEventListener('click', clickOutsideHandler);
+        document.removeEventListener('keydown', escKeyHandler);
+        const restoreButton = newButton.cloneNode(true) as HTMLButtonElement;
+        newButton.parentNode?.replaceChild(restoreButton, newButton);
+        restoreButton.textContent = originalButtonText;
+        restoreButton.addEventListener('click', hideAlert);
+        dom.alertOkBtn = restoreButton;
+        delete (dom.alertModal as any).__restoreLoginModal;
+    };
+
+    dom.alertModal.classList.remove('hidden');
+};
 
 export const switchView = (view: any) => {
     if (view === 'grid') {
