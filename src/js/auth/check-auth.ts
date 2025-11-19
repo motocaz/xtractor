@@ -7,7 +7,7 @@ import clerk, { clerkReady } from './clerk.ts';
 export async function checkAuth(): Promise<boolean> {
     try {
         await clerkReady;
-        const user = await clerk.user;
+        const user = clerk.user;
         return !!user;
     } catch (error) {
         console.error('Error checking authentication:', error);
