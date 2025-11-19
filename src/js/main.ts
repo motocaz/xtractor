@@ -286,7 +286,6 @@ const init = () => {
   }
 
   createIcons({ icons });
-  console.log('Please share our tool and share the love!');
 
   mountHeaderUser({ containerId: 'header-user-container' }).catch((err) => {
     console.error('Failed to mount header user component:', err);

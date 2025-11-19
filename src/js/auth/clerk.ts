@@ -11,9 +11,9 @@ if (!publishableKey) {
 }
 
 const CLERK_CONFIG = {
-    signInUrl: "/src/pages/sign-in",
-    signUpUrl: "/src/pages/sign-up",
-    afterSignOutUrl: "/",
+    signInUrl: `${import.meta.env.BASE_URL}src/pages/sign-in`,
+    signUpUrl: `${import.meta.env.BASE_URL}src/pages/sign-up`,
+    afterSignOutUrl: import.meta.env.BASE_URL,
     localization: {
         locale: "en-US"
     },

@@ -116,7 +116,7 @@ function initializeTool() {
   createIcons({ icons });
 
   document.getElementById('close-tool-btn')?.addEventListener('click', () => {
-    window.location.href = '../../index.html';
+    window.location.href = `${import.meta.env.BASE_URL}index.html`;
   });
 
   document.getElementById('upload-pdfs-btn')?.addEventListener('click', () => {

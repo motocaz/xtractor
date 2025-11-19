@@ -1,7 +1,7 @@
 import JSZip from 'jszip'
 import { downloadFile, formatBytes, readFileAsArrayBuffer } from '../utils/helpers';
 
-const worker = new Worker(new URL('/workers/json-to-pdf.worker.js', import.meta.url));
+const worker = new Worker(`${import.meta.env.BASE_URL}workers/json-to-pdf.worker.js`);
 
 let selectedFiles: File[] = []
 
@@ -149,7 +149,7 @@ worker.onmessage = async (e: MessageEvent) => {
 
 if (backToToolsBtn) {
   backToToolsBtn.addEventListener('click', () => {
-    window.location.href = '../../index.html#tools-header'
+    window.location.href = `${import.meta.env.BASE_URL}index.html#tools-header`
   })
 }
 

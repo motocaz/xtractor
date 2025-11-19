@@ -2080,7 +2080,7 @@ async function extractExistingBookmarks(doc) {
 // Back to tools button
 if (backToToolsBtn) {
   backToToolsBtn.addEventListener('click', () => {
-    window.location.href = '../../index.html#tools-header';
+    window.location.href = `${import.meta.env.BASE_URL}index.html#tools-header`;
   });
 }
 
