@@ -1,6 +1,4 @@
-// Extract base path from worker location (e.g., /xtractor/workers/... -> /xtractor/)
-const basePath = self.location.pathname.split('/workers/')[0] || '';
-self.importScripts(basePath + '/coherentpdf.browser.min.js');
+self.importScripts('/coherentpdf.browser.min.js');
 
 function generateTableOfContentsInWorker(
   pdfData,
