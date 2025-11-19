@@ -77,6 +77,8 @@ export const showLoginModal = () => {
     document.addEventListener('keydown', escKeyHandler);
 
     (dom.alertModal as any).__restoreLoginModal = () => {
+        dom.alertModal.removeEventListener('click', clickOutsideHandler);
+        document.removeEventListener('keydown', escKeyHandler);
         const restoreButton = newButton.cloneNode(true) as HTMLButtonElement;
         newButton.parentNode?.replaceChild(restoreButton, newButton);
         restoreButton.textContent = originalButtonText;
