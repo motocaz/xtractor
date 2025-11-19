@@ -3,7 +3,11 @@ import { Clerk } from '@clerk/clerk-js'
 const publishableKey = import.meta.env.VITE_CLERK_PUBLISHABLE_KEY
 
 if (!publishableKey) {
-    throw new Error('Missing VITE_CLERK_PUBLISHABLE_KEY environment variable')
+    throw new Error(
+        'Missing VITE_CLERK_PUBLISHABLE_KEY environment variable. ' +
+        'Please add VITE_CLERK_PUBLISHABLE_KEY=pk_... to your .env file. ' +
+        'Get your key from https://dashboard.clerk.com'
+    )
 }
 
 const CLERK_CONFIG = {
