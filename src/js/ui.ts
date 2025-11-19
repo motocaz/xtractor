@@ -58,7 +58,7 @@ export const showLoginModal = () => {
     dom.alertOkBtn = newButton;
 
     newButton.addEventListener('click', () => {
-        window.location.href = `${import.meta.env.BASE_URL}src/pages/sign-in.html`;
+        window.location.href = '/src/pages/sign-in.html';
     });
 
     const clickOutsideHandler = (e: MouseEvent) => {
