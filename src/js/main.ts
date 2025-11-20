@@ -1,14 +1,19 @@
 import { categories } from './config/tools.js';
-import { dom, switchView, hideAlert, showLoginModal } from './ui.js';
+import { dom, switchView, hideAlert, showLoginModal, showUpgradeModal } from './ui.js';
 import { setupToolInterface } from './handlers/toolSelectionHandler.js';
 import { createIcons, icons } from 'lucide';
 import * as pdfjsLib from 'pdfjs-dist';
 import '../css/styles.css';
 import { formatStars } from './utils/helpers.js';
 import { mountHeaderUser } from './auth/header-user.js';
-import { checkAuth } from './auth/check-auth.js';
+import { checkAuth, checkSubscription } from './auth/check-auth.js';
+import { detectPaymentReturn, handlePaymentReturn } from './auth/payment-verification.js';
 
-const init = () => {
+const init = async () => {
+  if (detectPaymentReturn()) {
+    await handlePaymentReturn();
+  }
+
   pdfjsLib.GlobalWorkerOptions.workerSrc = new URL(
     'pdfjs-dist/build/pdf.worker.min.mjs',
     import.meta.url
@@ -161,9 +166,16 @@ const init = () => {
           const isAuthenticated = await checkAuth();
           if (!isAuthenticated) {
             showLoginModal();
-          } else {
-            window.location.href = tool.href;
+            return;
           }
+
+          const hasActiveSubscription = await checkSubscription();
+          if (!hasActiveSubscription) {
+            showUpgradeModal();
+            return;
+          }
+
+          window.location.href = tool.href;
         });
       } else {
         toolCard = document.createElement('div');
@@ -258,6 +270,13 @@ const init = () => {
           showLoginModal();
           return;
         }
+
+        const hasActiveSubscription = await checkSubscription();
+        if (!hasActiveSubscription) {
+          showUpgradeModal();
+          return;
+        }
+
         setupToolInterface(toolId);
       }
     }

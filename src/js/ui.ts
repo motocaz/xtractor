@@ -22,6 +22,8 @@ export const dom = {
     toolsHeader: document.getElementById('tools-header'),
     dividers: document.querySelectorAll('.section-divider'),
     hideSections: document.querySelectorAll('.hide-section'),
+    paymentVerificationModal: document.getElementById('payment-verification-modal'),
+    paymentVerificationText: document.getElementById('payment-verification-text'),
 };
 
 export const showLoader = (text = 'Processing...') => {
@@ -88,6 +90,112 @@ export const showLoginModal = () => {
     };
 
     dom.alertModal.classList.remove('hidden');
+};
+
+export const showUpgradeModal = () => {
+    dom.alertTitle.textContent = '🔒 Upgrade to Pro';
+    dom.alertMessage.textContent = 'This feature requires a Pro subscription. Upgrade now to unlock all premium tools!';
+
+    const originalButtonText = dom.alertOkBtn.textContent;
+
+    const newButton = dom.alertOkBtn.cloneNode(true) as HTMLButtonElement;
+    dom.alertOkBtn.parentNode?.replaceChild(newButton, dom.alertOkBtn);
+
+    newButton.textContent = 'Get Pro';
+    newButton.className = 'btn bg-fuchsia-600 text-white font-semibold py-2 px-6 rounded-lg hover:bg-fuchsia-700';
+
+    dom.alertOkBtn = newButton;
+
+    newButton.addEventListener('click', async () => {
+        try {
+            const { default: clerk } = await import('./auth/clerk.js');
+
+            if (!clerk.session) {
+                alert('Please sign in first.');
+                return;
+            }
+
+            const token = await clerk.session.getToken();
+
+            if (!token) {
+                alert('Failed to retrieve authentication token.');
+                return;
+            }
+
+            const checkoutBody = {
+                paymentProcessor: "stripe",
+                allowDiscountCodes: true,
+                requireBillingAddress: false,
+                products: ["5fc5bd0c-8c4a-46b3-85e0-a5163f346201"]
+            };
+
+            const response = await fetch(`${import.meta.env.VITE_BACKEND_URL}/create-checkout`, {
+                method: 'POST',
+                headers: {
+                    'Authorization': `Bearer ${token}`,
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify(checkoutBody)
+            });
+
+            if (!response.ok) {
+                const errorText = await response.text();
+                throw new Error(`HTTP ${response.status}: ${errorText}`);
+            }
+
+            const data = await response.json();
+
+            if (data.url) {
+                window.location.href = data.url;
+            } else {
+                alert('Checkout URL not found in response.');
+            }
+        } catch (error) {
+            console.error('Checkout Error:', error);
+            alert(`Error during checkout: ${error.message}`);
+        }
+    });
+
+    const clickOutsideHandler = (e: MouseEvent) => {
+        if (e.target === dom.alertModal) {
+            hideAlert();
+        }
+    };
+
+    const escKeyHandler = (e: KeyboardEvent) => {
+        if (e.key === 'Escape') {
+            hideAlert();
+        }
+    };
+
+    dom.alertModal.addEventListener('click', clickOutsideHandler);
+    document.addEventListener('keydown', escKeyHandler);
+
+    (dom.alertModal as any).__restoreLoginModal = () => {
+        dom.alertModal.removeEventListener('click', clickOutsideHandler);
+        document.removeEventListener('keydown', escKeyHandler);
+        const restoreButton = newButton.cloneNode(true) as HTMLButtonElement;
+        newButton.parentNode?.replaceChild(restoreButton, newButton);
+        restoreButton.textContent = originalButtonText;
+        restoreButton.className = 'btn bg-fuchsia-600 text-white font-semibold py-2 px-6 rounded-lg hover:bg-fuchsia-700';
+        restoreButton.addEventListener('click', hideAlert);
+        dom.alertOkBtn = restoreButton;
+        delete (dom.alertModal as any).__restoreLoginModal;
+    };
+
+    dom.alertModal.classList.remove('hidden');
+};
+
+export const showPaymentVerificationModal = () => {
+    dom.paymentVerificationModal.classList.remove('hidden');
+};
+
+export const hidePaymentVerificationModal = () => {
+    dom.paymentVerificationModal.classList.add('hidden');
+};
+
+export const showPaymentTimeoutMessage = () => {
+    dom.paymentVerificationText.textContent = 'Payment is still processing. Please refresh the page in a moment to access your Pro features.';
 };
 
 export const switchView = (view: any) => {

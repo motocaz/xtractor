@@ -1,9 +1,5 @@
 import clerk, { clerkReady } from './clerk.ts';
 
-/**
- * Checks if the user is authenticated
- * @returns Promise<boolean> - true if authenticated, false otherwise
- */
 export async function checkAuth(): Promise<boolean> {
     try {
         await clerkReady;
@@ -11,6 +7,26 @@ export async function checkAuth(): Promise<boolean> {
         return !!user;
     } catch (error) {
         console.error('Error checking authentication:', error);
+        return false;
+    }
+}
+
+export async function checkSubscription(): Promise<boolean> {
+    try {
+        await clerkReady;
+        const user = clerk.user;
+
+        if (!user) {
+            return false;
+        }
+
+        const metadata = user.publicMetadata as { plan?: string; status?: string };
+
+        const hasActivePro = metadata?.plan === 'pro' && metadata?.status === 'active';
+
+        return hasActivePro;
+    } catch (error) {
+        console.error('Error checking subscription:', error);
         return false;
     }
 }
